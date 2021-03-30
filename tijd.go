@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"time"
 )
@@ -13,13 +14,13 @@ func readConfig() map[string]interface{} {
 	var configuration map[string]interface{}
 
 	hdir, _ := os.UserHomeDir()
-	data, err := ioutil.ReadFile(hdir + "/.timeytime.json")
+	data, err := ioutil.ReadFile(hdir + "/.tijd.json")
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 	err = json.Unmarshal(data, &configuration)
 	if err != nil {
-		fmt.Println("Unmarshal: %v", err)
+		log.Fatal("Unmarshal: %v", err)
 	}
 
 	return configuration
