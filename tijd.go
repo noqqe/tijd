@@ -9,6 +9,21 @@ import (
 	"time"
 )
 
+var (
+	Reset       = "\033[0m"
+	Background  = "\033[38;5;59m"
+	CurrentLine = "\033[38;5;60m"
+	Foreground  = "\033[38;5;231m"
+	Comment     = "\033[38;5;103m"
+	Cyan        = "\033[38;5;159m"
+	Green       = "\033[38;5;120m"
+	Orange      = "\033[38;5;222m"
+	Pink        = "\033[38;5;212m"
+	Purple      = "\033[38;5;183m"
+	Red         = "\033[38;5;210m"
+	Yellow      = "\033[38;5;229m"
+)
+
 func readConfig() map[string]interface{} {
 
 	var configuration map[string]interface{}
@@ -34,7 +49,7 @@ func parseLocations(timeCurrent, timeInUTC time.Time, locations map[string]inter
 		if err != nil {
 			panic(err)
 		}
-		fmt.Printf("%s\t\t%s (%v)\n", loc, timeLoc.Format("15:04:05 -0700"), timeLoc.Location())
+		fmt.Printf("%s\t\t%s%s %s(%v)%s\n", loc, Green, timeLoc.Format("15:04:05 -0700"), Comment, timeLoc.Location(), Reset)
 	}
 
 	return true
@@ -50,8 +65,8 @@ func main() {
 	timeInUTC := timeCurrent.In(time.UTC)
 
 	// Print current time in local timezone
-	fmt.Printf("Your time: \t%s (%s)\n", timeCurrent.Format("15:04:05 -0700"), timeCurrent.Location())
-	fmt.Printf("UTC time: \t%s (%s)\n\n", timeInUTC.Format("15:04:05 -0700"), timeInUTC.Location())
+	fmt.Printf("Your time: \t%s%s %s(%s)%s\n", Pink, timeCurrent.Format("15:04:05 -0700"), Comment, timeCurrent.Location(), Reset)
+	fmt.Printf("UTC time: \t%s%s %s(%s)%s\n\n", Yellow, timeInUTC.Format("15:04:05 -0700"), Comment, timeInUTC.Location(), Reset)
 
 	// Parse foreign locations
 	locs := configuration["Locations"].(map[string]interface{})
