@@ -22,6 +22,7 @@ var (
 	Purple      = "\033[38;5;183m"
 	Red         = "\033[38;5;210m"
 	Yellow      = "\033[38;5;229m"
+	Version     = "unknown"
 )
 
 func readConfig() map[string]interface{} {
@@ -65,6 +66,7 @@ func main() {
 	timeInUTC := timeCurrent.In(time.UTC)
 
 	// Print current time in local timezone
+	fmt.Printf("%stijd %s%s\n\n", Purple, Version, Reset)
 	fmt.Printf("Your time: \t%s%s %s(%s)%s\n", Pink, timeCurrent.Format("15:04:05 -0700"), Comment, timeCurrent.Location(), Reset)
 	fmt.Printf("UTC time: \t%s%s %s(%s)%s\n\n", Yellow, timeInUTC.Format("15:04:05 -0700"), Comment, timeInUTC.Location(), Reset)
 

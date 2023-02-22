@@ -1,2 +1,4 @@
 dist/*
 tijd
+.task/
+.DS_Store
