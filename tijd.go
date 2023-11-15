@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sort"
 	"time"
 )
 
@@ -43,8 +44,14 @@ func readConfig() map[string]interface{} {
 
 func parseLocations(timeInUTC time.Time, locations map[string]interface{}) bool {
 
-	for loc, zone := range locations {
-		location, err := time.LoadLocation(zone.(string))
+	keys := make([]string, 0, len(locations))
+	for k := range locations {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	for _, loc := range keys {
+		location, err := time.LoadLocation(locations[loc].(string))
 		timeLoc := timeInUTC.In(location)
 		if err != nil {
 			panic(err)
