@@ -14,6 +14,10 @@ builds:
       - windows
       - darwin
       - openbsd
+    ldflags:
+      - -X main.Version={{.Tag}}
+    flags:
+      - -v
 archives:
   - id: tijd
     name_template: >-
@@ -48,7 +52,7 @@ brews:
 
     # GitHub/GitLab repository to push the formula to
     # Gitea is not supported yet, but the support coming
-    tap:
+    repository:
       owner: noqqe
       name: homebrew-tap
       # Optionally a token can be provided, if it differs from the token provided to GoReleaser
