@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"time"
@@ -30,19 +29,19 @@ func readConfig() map[string]interface{} {
 	var configuration map[string]interface{}
 
 	hdir, _ := os.UserHomeDir()
-	data, err := ioutil.ReadFile(hdir + "/.tijd.json")
+	data, err := os.ReadFile(hdir + "/.tijd.json")
 	if err != nil {
 		log.Fatal(err)
 	}
 	err = json.Unmarshal(data, &configuration)
 	if err != nil {
-		log.Fatal("Unmarshal: %v", err)
+		log.Fatalf("Unmarshal: %v", err)
 	}
 
 	return configuration
 }
 
-func parseLocations(timeCurrent, timeInUTC time.Time, locations map[string]interface{}) bool {
+func parseLocations(timeInUTC time.Time, locations map[string]interface{}) bool {
 
 	for loc, zone := range locations {
 		location, err := time.LoadLocation(zone.(string))
@@ -72,6 +71,6 @@ func main() {
 
 	// Parse foreign locations
 	locs := configuration["Locations"].(map[string]interface{})
-	parseLocations(timeCurrent, timeInUTC, locs)
+	parseLocations(timeInUTC, locs)
 
 }
